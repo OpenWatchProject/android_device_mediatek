@@ -1,0 +1,39 @@
+on post-fs-data
+# VIA flashlessd service
+    mkdir /data/flashless 0770 radio system
+    mkdir /mnt/vendor/nvdata/md_via 0770 root system
+    chmod 0660 /dev/ttyMT2
+    chown radio radio /dev/ttyMT2
+    chmod 0660 /dev/vmodem
+    chown radio radio /dev/vmodem
+
+on boot
+#VIA device property
+setprop viatel.device.asci uart.2.ttyMT
+setprop viatel.device.data sdio.0.ttySDIO
+setprop viatel.device.ets  sdio.1.ttySDIO
+setprop viatel.device.fls  sdio.2.ttySDIO
+setprop viatel.device.at   sdio.3.ttySDIO
+setprop viatel.device.pcv  sdio.4.ttySDIO
+setprop viatel.device.gps  sdio.5.ttySDIO
+setprop viatel.device.at2  sdio.6.ttySDIO
+
+
+#VIA ctclientd service
+#service ctclientd /vendor/bin/ctclient
+#    user radio
+#    class main
+#	group radio cache inet misc
+#    disabled
+#    on property:net.ctclientd=enable
+#        start ctclientd
+
+#    on property:net.ctclientd=disable
+#        stop ctclientd
+
+#VIA pppd service
+service pppd_via /system/bin/pppd_via file /data/pppd_via/options
+    user radio
+    group radio cache inet misc vpn sdcard_rw net_admin net_raw
+    disabled
+    oneshot

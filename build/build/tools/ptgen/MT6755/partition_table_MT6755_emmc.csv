@@ -1,0 +1,48 @@
+Partition_Name,Type,Size_KB,,Region,Reserved,Download,Download_File,OTA_Update,EmptyBoot_Needed,FastBoot_Erase,,FastBoot_Download,,Operation_Type
+,,eng,user,,,,,,,eng,user,eng,user,
+preloader,Raw data,256,,EMMC_BOOT1_BOOT2,N,Y,AUTO,Y,N,N,,N,,BOOTLOADERS
+pgpt,Raw data,32,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+recovery,Raw data,16384,,EMMC_USER,N,Y,recovery.img,Y,N,Y,N,Y,N,AUTO
+para,Raw data,512,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+custom,EXT4,56320,,EMMC_USER,N,Y,AUTO,N,N,N,,N,,AUTO
+expdb,Raw data,10240,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+frp,Raw data,1024,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+ppl,Raw data,256,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+misc2,Raw data,8192,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+nvcfg,EXT4,8192,,EMMC_USER,N,N,NONE,N,N,N,,N,,PROTECTED
+persist,EXT4,49152,,EMMC_USER,N,N,NONE,N,N,N,,N,,PROTECTED
+nvdata,EXT4,32768,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+md_udc,Raw data,23144,,EMMC_USER,N,N,NONE,N,N,Y,,N,,AUTO
+metadata,Raw data,32768,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+protect1,EXT4,8192,,EMMC_USER,N,N,NONE,N,N,N,,N,,PROTECTED
+protect2,EXT4,8192,,EMMC_USER,N,N,NONE,N,N,N,,N,,PROTECTED
+eng_system,EXT4,32768,,EMMC_USER,N,N,NONE,N,N,Y,,Y,,AUTO
+eng_vendor,EXT4,32768,,EMMC_USER,N,N,NONE,N,N,Y,,Y,,AUTO
+seccfg,Raw data,256,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+oemkeystore,Raw data,8192,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+proinfo,Raw data,3072,,EMMC_USER,N,N,NONE,N,N,N,,N,,PROTECTED
+efuse,Raw data,512,,EMMC_USER,N,Y,efuse.img,N,N,N,,N,,AUTO
+md1img,Raw data,24576,,EMMC_USER,N,Y,md1img.img,Y,N,N,,N,,AUTO
+md1dsp,Raw data,4096,,EMMC_USER,N,Y,md1dsp.img,Y,N,N,,N,,AUTO
+md1arm7,Raw data,3072,,EMMC_USER,N,Y,md1arm7.img,Y,N,N,,N,,AUTO
+md3img,Raw data,5120,,EMMC_USER,N,Y,md3img.img,Y,N,N,,N,,AUTO
+nvram,Raw data,5120,,EMMC_USER,N,N,NONE,N,N,N,,N,,BINREGION
+lk,Raw data,1024,,EMMC_USER,N,Y,lk.img,Y,Y,Y,N,Y,N,AUTO
+lk2,Raw data,1024,,EMMC_USER,N,Y,lk.img,Y,N,Y,N,Y,N,AUTO
+boot,Raw data,16384,,EMMC_USER,N,Y,boot.img,Y,N,Y,,Y,,AUTO
+logo,Raw data,8192,,EMMC_USER,N,Y,logo.bin,N,Y,Y,N,Y,N,AUTO
+odmdtbo,Raw data,16384,,EMMC_USER,N,Y,odmdtbo.img,Y,N,Y,,Y,,AUTO
+dtbo,Raw data,8192,,EMMC_USER,N,Y,dtbo.img,Y,N,Y,,Y,,AUTO
+tee1,Raw data,5120,,EMMC_USER,N,Y,tee.img,Y,Y,N,,N,,AUTO
+tee2,Raw data,5120,,EMMC_USER,N,Y,tee.img,Y,N,N,,N,,AUTO
+secro,Raw data,6144,,EMMC_USER,N,Y,secro.img,N,N,N,,N,,AUTO
+keystore,Raw data,8192,,EMMC_USER,N,N,NONE,N,N,Y,,Y,,AUTO
+odm,EXT4,32768,,EMMC_USER,N,Y,odm.img,N,N,Y,,Y,,AUTO
+vendor,EXT4,524288,,EMMC_USER,N,Y,vendor.img,Y,N,Y,,Y,,AUTO
+system,EXT4,2621440,,EMMC_USER,N,Y,system.img,Y,N,Y,,Y,,AUTO
+cache,EXT4,442368,,EMMC_USER,N,Y,cache.img,N,N,Y,,Y,,AUTO
+userdata,EXT4,3145728,,EMMC_USER,N,Y,userdata.img,N,N,Y,,Y,,AUTO
+intsd,FAT,0,,EMMC_USER,N,N,NONE,N,N,N,,N,,AUTO
+otp,Raw data,44032,,EMMC_USER,Y,N,NONE,N,N,N,,N,,RESERVED
+flashinfo,Raw data,16384,,EMMC_USER,Y,N,NONE,N,N,N,,N,,RESERVED
+sgpt,Raw data,16.5,,EMMC_USER,Y,N,NONE,N,N,N,,N,,RESERVED

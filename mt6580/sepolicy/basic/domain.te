@@ -1,0 +1,8 @@
+# Date : W18.45
+# Operation : MTK gpu enable drvb
+# Purpose : drvb need dgb2 permission
+
+allow {
+  domain
+  -isolated_app
+} sysfs_gpu:file { open read };

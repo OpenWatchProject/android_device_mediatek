@@ -1,0 +1,7 @@
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+# Date : 2018/10/25
+# Purpose : mtk GPU drvb permission setting
+type sysfs_gpu, fs_type, sysfs_type, mlstrustedobject;

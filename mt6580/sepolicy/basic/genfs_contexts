@@ -1,0 +1,8 @@
+# ==============================================
+# MTK Policy Rule
+# ============
+
+# allow gpu to set dbg
+genfscon sysfs /disp/dbg1  u:object_r:sysfs_gpu:s0
+genfscon sysfs /disp/dbg2  u:object_r:sysfs_gpu:s0
+genfscon sysfs /disp/dbg3  u:object_r:sysfs_gpu:s0

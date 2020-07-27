@@ -1,0 +1,12 @@
+# ==============================================
+# MTK Policy Rule
+# ============
+
+#############################
+# sysfs files
+#
+
+# Date : 2019/12/20
+# Purpose: dumpstate mmcblk0 access
+genfscon sysfs /devices/mtk-msdc.0/11230000.msdc0/mmc_host/mmc0/mmc0:0001/block/mmcblk0 u:object_r:sysfs_mmcblk:s0
+

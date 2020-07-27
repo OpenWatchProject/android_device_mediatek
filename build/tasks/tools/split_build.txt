@@ -1,0 +1,144 @@
+[PRODUCT_OUT view]
+system/		system layer
+		- except rsc.xml when RSC enabled
+system_other/	system layer, when AB_OTA enabled
+product/	system layer
+vendor/		vendor layer
+root/		system layer
+ramdisk/	vendor layer
+recovery/root/	common layer
+		- init.recovery.mt*.rc is vendor layer
+		- others copied from root/ are system layer
+debug_ramdisk/	common layer
+		- adb_debug.prop & userdebug_plat_sepolicy.cli are vendor layer
+		- others copied from recovery/root/ when recovery_as_boot enabled are common layer
+		- others copied from ramdisk/ when recovery_as_boot disabled are vendor layer
+data/		common layer
+		- any modules with tests tags
+kernel		vendor layer
+
+
+[TARGET_FILES_PACKAGE view]
+SYSTEM/*		system layer, from system/
+			- except rsc.xml
+SYSTEM_OTHER/*		system layer, from system_other/
+PRODUCT/*		system layer, from product/
+VENDOR/*		vendor layer, from vendor/
+ROOT/*			system layer, from root/
+BOOT/kernel		vendor layer, from kernel
+BOOT/RAMDISK/*		common layer
+			- from recovery/root/ when recovery_as_boot enabled
+			- from ramdisk/ when recovery_as_boot disabled
+RECOVERY/kernel		vendor layer, from kernel when recovery_as_boot disabled
+RECOVERY/RAMDISK/*	common layer, from recovery/root/ when recovery_as_boot disabled
+BOOT_DEBUG/kernel	vendor layer, from kernel
+BOOT_DEBUG/RAMDISK/*	common layer, from debug_ramdisk/
+DATA/*			common layer, from data/
+
+
+system_as_root must be always disabled
+
+
+[Configuration]
+ADD_IMG_TO_TARGET_FILES_IMAGES
+	- These images are not packed in split build, but created during post process stage
+	- Maybe come from AOSP add_img_to_target_files.py, or MTK post_process_target_files.py (hard code)
+
+MTK_VERIFIED_BOOT_V1_ORIGINAL_IMAGES
+	- These images need to be processed by MTK sign-image V1.1 (verified boot & secure download) first, usually into x-verified.img and x-sign.img
+	- Maybe come from vendor/mediatek/proprietary/scripts/sign-image/SignTool.pl @imgs_need_sign_raw (hard code)
+
+MTK_SECURE_DOWNLOAD_ORIGINAL_IMAGES
+	- These images need to be processed by MTK sign-image V1.1 (secure download only) first, usually into x-sign.img
+	- Maybe come from vendor/mediatek/proprietary/scripts/sign-image/SignTool.pl @imgs_need_sign (hard code)
+
+MTK_VERIFIED_BOOT_V2_ORIGINAL_IMAGES
+	- These images need to be processed by MTK sign-image V2.0 (verified boot) first, usually into x-verified.img
+	- Come from vendor/mediatek/proprietary/custom/$(PLATFORM)/security/cert_config/img_list.txt (auto parsing)
+
+MTK_VERIFIED_BOOT_CURRENT_IMAGES
+	- These images need to copy x-verified.img to target-files-package, and also for MTK FlashTool
+	- Come from (MTK_VERIFIED_BOOT_V1_ORIGINAL_IMAGES or MTK_VERIFIED_BOOT_V2_ORIGINAL_IMAGES) and ptgen scatter file
+
+MTK_SECURE_DOWNLOAD_CURRENT_IMAGES :=
+	- These images need to copy x-verified.img to target-files-package, and generate x-sign.img for MTK FlashTool secure download
+	- Come from MTK_SECURE_DOWNLOAD_ORIGINAL_IMAGES and ptgen scatter file
+
+MTK_NORMAL_UPGRADABLE_CURRENT_IMAGES
+	- These images need to copy x.img to target-files-package, and also for MTK FlashTool
+	- Come from ptgen scatter file
+
+MTK_NOT_UPGRADABLE_CURRENT_IMAGES
+	- These images need to generate x.img for MTK FlashTool, but not used by target-files-package
+	- Come from hard code
+
+
+[Add new image or file]
+Case 01  : system.img (in MT6739)
+FlashTool: Yes
+OTA      : Yes
+Layer    : Merged
+MTK sign : V2.0
+Config   :
+ADD_IMG_TO_TARGET_FILES_IMAGES in device/mediatek/build/Android.mk
+Other configuration required by MTK sign
+
+Case 02  : system.img (in MT6580)
+FlashTool: Yes
+OTA      : Yes
+Layer    : Merged
+MTK sign : V1.1 secure download only
+Config   :
+ADD_IMG_TO_TARGET_FILES_IMAGES in device/mediatek/build/Android.mk
+MTK_SECURE_DOWNLOAD_ORIGINAL_IMAGES in device/mediatek/build/Android.mk
+secure_download_images in vendor/mediatek/proprietary/scripts/releasetools/post_process_target_files.py
+Other configuration required by MTK sign
+
+Case 03  : lk.img (in MT6739)
+FlashTool: Yes
+OTA      : Yes
+Layer    : Vendor
+MTK sign : V2.0
+Config   :
+Other configuration required by MTK sign
+
+Case 04  : lk.img (in MT6580)
+FlashTool: Yes
+OTA      : Yes
+Layer    : Vendor
+MTK sign : V1.1 verified boot & secure download
+Config   :
+MTK_VERIFIED_BOOT_V1_ORIGINAL_IMAGES in device/mediatek/build/Android.mk
+Other configuration required by MTK sign
+
+Case 05  : PGPT
+FlashTool: Yes
+OTA      : Yes
+Layer    : Vendor
+MTK sign : No
+Config   :
+MTK_NORMAL_UPGRADABLE_CURRENT_IMAGES in device/mediatek/build/Android.mk
+
+Case 06  : preloader.img
+FlashTool: No
+OTA      : Yes
+Layer    : Vendor
+MTK sign : No
+Config   :
+MTK_NORMAL_UPGRADABLE_CURRENT_IMAGES in device/mediatek/build/Android.mk
+
+Case 07  : preloader_xxx.bin
+FlashTool: Yes
+OTA      : No
+Layer    : Vendor
+MTK sign : No
+Config   :
+MTK_NOT_UPGRADABLE_CURRENT_IMAGES in device/mediatek/build/Android.mk
+
+Case 08  : installed-files-vendor.txt
+FlashTool: No
+OTA      : No
+Layer    : Vendor
+MTK sign : No
+Config   :
+MTK_SPLIT_VENDOR_DIST_FILES in device/mediatek/build/tasks/tools/split_vendor.mk
