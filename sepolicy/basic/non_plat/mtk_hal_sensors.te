@@ -52,6 +52,7 @@ allow mtk_hal_sensors m_situ_misc_device:chr_file rw_file_perms;
 allow mtk_hal_sensors m_step_c_misc_device:chr_file rw_file_perms;
 allow mtk_hal_sensors m_fusion_misc_device:chr_file rw_file_perms;
 allow mtk_hal_sensors m_bio_misc_device:chr_file rw_file_perms;
+allow mtk_hal_sensors m_hrs_misc_device:chr_file rw_file_perms;
 
 # Access mtk sensor setting and calibration node.
 # for data

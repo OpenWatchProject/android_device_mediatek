@@ -408,6 +408,7 @@
 /dev/m_step_c_misc(/.*)? u:object_r:m_step_c_misc_device:s0
 /dev/m_fusion_misc(/.*)? u:object_r:m_fusion_misc_device:s0
 /dev/m_bio_misc(/.*)? u:object_r:m_bio_misc_device:s0
+/dev/m_hrs_misc(/.*)? u:object_r:m_hrs_misc_device:s0
 
 # block partition definitions
 /dev/block/mmcblk0boot0 u:object_r:preloader_block_device:s0
